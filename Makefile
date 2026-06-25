@@ -5,13 +5,13 @@ VVP=vvp
 	test-and_gate test-nand_gate test-or_gate test-xor_gate test-not_gate \
 	test-mux2 test-mux16 test-dmux \
 	test-half_adder test-full_adder test-add16 test-inc16 \
-	test-reg16 test-pc16 test-ram16 test-rom16 \
+	test-reg16 test-pc16 test-ram16 test-rom16 test-hack_cpu \
 	clean
 
 test: test-and_gate test-nand_gate test-or_gate test-xor_gate test-not_gate \
 	test-mux2 test-mux16 test-dmux \
 	test-half_adder test-full_adder test-add16 test-inc16 \
-	test-reg16 test-pc16 test-ram16 test-rom16
+	test-reg16 test-pc16 test-ram16 test-rom16 test-hack_cpu
 
 test-and_gate:
 	mkdir -p build waves
@@ -92,6 +92,11 @@ test-rom16:
 	mkdir -p build waves
 	$(IVERILOG) -g2012 -o build/tb_rom16 rtl/memory/rom16.v tb/tb_rom16.v
 	$(VVP) build/tb_rom16
+
+test-hack_cpu:
+	mkdir -p build waves
+	$(IVERILOG) -g2012 -o build/tb_hack_cpu rtl/alu/alu16.v rtl/cpu/reg16.v rtl/cpu/pc16.v rtl/cpu/hack_cpu.v tb/tb_hack_cpu.v
+	$(VVP) build/tb_hack_cpu
 
 clean:
 	rm -rf build waves
