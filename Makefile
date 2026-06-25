@@ -4,13 +4,13 @@ VVP=vvp
 .PHONY: test \
 	test-and_gate test-nand_gate test-or_gate test-xor_gate test-not_gate \
 	test-mux2 test-mux16 test-dmux \
-	test-half_adder test-full_adder test-add16 test-inc16 \
+	test-half_adder test-full_adder test-add16 test-inc16 test-alu16 \
 	test-reg16 test-pc16 test-ram16 test-rom16 test-hack_cpu \
 	clean
 
 test: test-and_gate test-nand_gate test-or_gate test-xor_gate test-not_gate \
 	test-mux2 test-mux16 test-dmux \
-	test-half_adder test-full_adder test-add16 test-inc16 \
+	test-half_adder test-full_adder test-add16 test-inc16 test-alu16 \
 	test-reg16 test-pc16 test-ram16 test-rom16 test-hack_cpu
 
 test-and_gate:
@@ -72,6 +72,11 @@ test-inc16:
 	mkdir -p build waves
 	$(IVERILOG) -g2012 -o build/tb_inc16 rtl/alu/inc16.v tb/tb_inc16.v
 	$(VVP) build/tb_inc16
+
+test-alu16:
+	mkdir -p build waves
+	$(IVERILOG) -g2012 -o build/tb_alu16 rtl/alu/alu16.v tb/tb_alu16.v
+	$(VVP) build/tb_alu16
 
 test-reg16:
 	mkdir -p build waves
